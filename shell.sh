@@ -1,0 +1,1 @@
+docker exec -it robotserver_web_1 /bin/bash

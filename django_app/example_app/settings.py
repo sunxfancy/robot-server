@@ -36,8 +36,23 @@ CHATTERBOT = {
     'name': 'Django ChatterBot Example',
     'trainer': 'chatterbot.trainers.ChatterBotCorpusTrainer',
     'training_data': [
-        'chatterbot.corpus.english.greetings'
+        'chatterbot.corpus.chinese.greetings',
+        'chatterbot.corpus.chinese.trivia',
+        'chatterbot.corpus.chinese.conversations'
     ]
+    # ,
+    # "logic_adapters": [
+    #     {
+    #         "import_path": "chatterbot.logic.BestMatch",
+    #         "statement_comparison_function": "chatterbot.comparisons.levenshtein_distance",
+    #         "response_selection_method": "chatterbot.response_selection.get_first_response"
+    #     },
+    #     {
+    #         'import_path': 'chatterbot.logic.LowConfidenceAdapter',
+    #         'threshold': 0.45,
+    #         'default_response': '抱歉，我不太明白您的意思'
+    #     }
+    # ]
 }
 
 MIDDLEWARE_CLASSES = (
