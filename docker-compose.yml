@@ -1,8 +1,35 @@
-web:
-  build: .
-  command: python manage.py runserver 0.0.0.0:8000
-  volumes:
-    - ./django_app:/app
-  ports:
-    - "8000:8000"
+version: "3"
 
+services:
+  mongo:
+    restart: always
+    image: mongo:3.4
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
+    volumes:
+      - robot-mongo:/data/db
+  
+  jetty:
+    restart: always
+    image: jetty:9.4-jre8
+    expose:
+      - "8080"
+      - "8443"
+    ports:
+      - "8001:8080"
+    volumes:
+      - ./jetty_app:/var/lib/jetty/webapps
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./django_app:/app
+    ports:
+      - "8000:8000"
+
+volumes:
+  robot-mongo:
+    driver: local
