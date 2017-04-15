@@ -1,0 +1,1 @@
+docker exec -it robotserver_jetty_1 /bin/bash

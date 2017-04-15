@@ -6,12 +6,9 @@
 
 <struts>
     <include file="struts-default.xml"/>
-    <package name="default" extends="struts-default">
-        <action name="">
-            <result>/view/index.jsp</result>
-        </action>
-        <action name="myAction" class="com.makble.struts2.action.MyAction">
-            <result name="myview">/view/myview.jsp</result>
+    <package name="default" namespace="/" extends="json-default">
+        <action name="get" class="robot.server.MainAction" >
+            <result type="json" />
         </action>
     </package>
 </struts>

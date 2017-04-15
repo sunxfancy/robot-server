@@ -1,5 +1,5 @@
 group 'robot'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'war'
@@ -9,10 +9,39 @@ sourceCompatibility = 1.8
 repositories {
     mavenLocal()
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
     // struts 2
     compile 'org.apache.struts:struts2-core:2.3.15.1'
+    compile 'org.apache.struts:struts2-json-plugin:2.3.15.1'
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+
+    // local libs
+    compile name: 'json-jena-1.0'
+    compile name: 'Msc'
+    compile name: 'native-libs-1.0'
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+war {
+    archiveName 'root.war'
+}
+
+task deployToJetty(type: Copy) {
+    from war.archivePath
+    into "../jetty_app/"
+}
+
+task nativeLibsToJar(type: Zip, description: 'create a jar archive of the native libs') {
+    destinationDir file("$buildDir/native-libs")
+    baseName 'native-libs'
+    extension 'jar'
+    from fileTree(dir: 'libs', include: '**/*.so')
+    into '/'
 }
